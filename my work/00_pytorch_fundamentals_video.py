@@ -133,3 +133,14 @@ print(tensor.device)
 torch.mul(tensor,10)
 torch.add(tensor, 10)
 
+# matrix multiplication: 
+#Two main ways of performing multipliocation in neural networks and deep learning:
+# element wise multiplication
+# Matric Multiplication
+
+
+print(tensor, "*", tensor)
+print(f"Equals: {tensor*tensor}")
+
+
+print(torch.matmul(tensor, tensor))
