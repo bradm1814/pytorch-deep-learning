@@ -1,6 +1,7 @@
 ## 00. pytorch fundamentals
 import torch
 import random
+import numpy as np
 
 # # creating tensors
 
@@ -234,17 +235,115 @@ import random
 
 #torch.permute rearranges the dimension of a target tensor in a specified order
 
-x_original = torch.rand(size=(224,224,3)) # height, width, color channels
+# x_original = torch.rand(size=(224,224,3)) # height, width, color channels
 
-#permute the oridingal tensor to rearrange the axis(or dimension) order
+# #permute the oridingal tensor to rearrange the axis(or dimension) order
 
-x_permuted = x_original.permute(2,0,1)# shifts acis to index postions
+# x_permuted = x_original.permute(2,0,1)# shifts acis to index postions
 
-print(f"orinigal shape: {x_original.shape}")
+# print(f"orinigal shape: {x_original.shape}")
 
-print(f"new shape: {x_permuted.shape}")
+# print(f"new shape: {x_permuted.shape}")
 
+## Indexing (selecting data from tensors)
+## Indexing with Pytorch is similar to indexing with numpy
 
+# create a tensor
+# x = torch.arange(1, 10).reshape(1,3,3)
+
+# print(x, x.shape)
+
+# #Let's index on our new tensor
+
+# print(x[0])
+
+# print(x[0][0])
+
+# print(x[0,0,0])
+
+# #you can also use ":" to selcet all of a target dimension
+# print(x[:,0])
+
+# #Get all values of 0th and first dimensions but only index 1 of 2nd dimension
+# print(x[:,:,1])
+
+# # Get all values of the 0 dimension but only the 1 index value of 1st and 2nd dimension
+# print(x[:,1,1])
+
+# #Get index 0 of 0th and first dimension and all values of 2nd dimension,
+
+# print(x[0,0,:])
+
+# #index on x to return 3,6,9
+# print(x[0,:,2])
+
+#pytorch tensors and numpy
+
+#Numpy is a popular scientifc Python numberical computing library and because of this
+# and because of this, Pytorch has functionality to interact with it
+# Data in Numpy want in pytorch tensor-> torch.from_numpy(ndarray)
+# pytorch tensor-> numpy ->torch.tensor.numpy()
+
+# numpy array to tensor
+# array = np.arange(1.0, 8.0)
+# tensor = torch.from_numpy(array)
+
+# print(array,tensor)
+
+# #change the value of the array, what will this do to tensor
+
+# array = array +1
+
+# print(array,tensor)
+
+# #Tensor to numpy array
+# tensor = torch.ones(7)
+
+# numpy_tensor = tensor.numpy()
+# print(tensor, numpy_tensor)
+
+## Reproducability(trying to take the random out of random)
+
+## In short how a nueral network learns: start with random numbers ->perform tensor operations -? update random number to try and make them better representations over and over
+
+print(torch.rand(3,3))
+
+#to reduce randomness in nueral networks come the concept of a **RANDOM SEED**
+
+# essntially what the random seed does is "Flavor" the Randomness
+
+# create two random tensors
+random_tensor_A = torch.rand(3,4)
+random_tensor_B = torch.rand(3,4)
+
+print(random_tensor_A)
+print(random_tensor_B)
+print(random_tensor_A==random_tensor_B)
+
+#LEts make some random but reproducible tensors
+
+# set the random seed
+RANDOM_SEED = 42
+torch.manual_seed(RANDOM_SEED)
+random_tensor_C = torch.rand(3,4)
+torch.manual_seed(RANDOM_SEED)
+random_tensor_D = torch.rand(3,4)
+
+print(random_tensor_C)
+print(random_tensor_D)
+print(random_tensor_C==random_tensor_D)
+
+# Running Tensor and Pytorch objects on GPU's and making faster computations
+
+# GPUs = faster computations on numbers thanks to cuda, nvidieo , pytorch to make it better
+
+#check for GPU access with PyTorch
+
+print(torch.cuda.is_available())
+
+# setup device agnostic code
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
 
