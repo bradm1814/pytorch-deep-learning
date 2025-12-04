@@ -345,5 +345,20 @@ print(torch.cuda.is_available())
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
+## create a tensor (default on the cpu)
+
+tensor = torch.tensor([1,2,3],device="cpu")
+
+# move tnesor to gpu if avaialble
+
+tensor_on_gpu = tensor.to(device)
+
+print(tensor_on_gpu)
+
+## moving tensors back to the cpu
+
+# if tensor is on gpu cant transfor to numpy
+tensor_back_on_cpu = tensor_on_gpu.cpu().numpy()
+
 
 
